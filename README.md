@@ -1,4 +1,6 @@
-# React + Vite
+# invoice-generator-frontend
+
+This project uses React + Vite with HMR and ESLint.
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
