@@ -1,18 +1,43 @@
 import { useState } from "react"; // ✅ Yeh likhna zaroori hai
-import { Pencil } from "lucide-react"; // ✅ Add this line at the top
+import { NavigationIcon, Pencil } from "lucide-react"; // ✅ Add this line at the top
 import { AppContext } from "../context/AppContext";
 import { useContext } from "react"; // ✅ Yeh bhi zaroori hai
 import InvoiceForm from "../components/InvoiceForm";
-
+import TemplateGrid from "../components/TemplateGrid"; // ✅ Import the TemplateGrid component
+import toast   from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const MainPage = () => {
 
   const [isEditingTitle, setIsEditingTitle] = useState(false);
-  const { invoiceTitle, setInvoiceTitle } = useContext(AppContext);
+  const navigate = useNavigate(); // on click of template, navigate to preview page
+
+  const { invoiceTitle, setInvoiceTitle ,setInvoiceData
+    ,setSelectedTemplate,invoiceData
+
+ } = useContext(AppContext);
+
+
+const handleTemplateClick = (templateId) => {
+    const hasInvalitItem = invoiceData.items.some(
+        (item)=> !item.qty || !item.amount
+    )
+    if(hasInvalitItem){
+        toast.error("Please fill all item details before changing template");
+        return;
+    }
+    setSelectedTemplate(templateId);
+    navigate('/preview'); // Navigate to the preview page
+
+}
 
   const handleTitleChange = (e) =>{
     const newTitle = e.target.value;
     setInvoiceTitle(newTitle);
+    setInvoiceData((prevData) => ({
+      ...prevData,
+      title: newTitle
+    }));
 
   }
 
@@ -66,7 +91,7 @@ const MainPage = () => {
 
                     <div className="col-12 col-lg-6 d-flex">
                         <div className="bg-white border rounded shadow-sm p-4 w-100">
-                            template grid
+                            <TemplateGrid onTemplateClick={handleTemplateClick} />
                         </div>
                     </div>
                 </div>
