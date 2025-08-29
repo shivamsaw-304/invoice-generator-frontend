@@ -1,11 +1,43 @@
-import {useContext, useRef} from 'react';
+import {useContext, useRef, useState} from 'react';
 import { templates } from '../assets/assets';
 import { AppContext } from '../context/AppContext';
 import InvoicePreview from '../components/invoicePreview';
+import {saveInvoice} from "../sevice/InvoiceService.js";
+import toast from "react-hot-toast";
+import {useNavigate} from "react-router-dom";
+import {logger} from "html2canvas/dist/types/core/__mocks__/logger.js";
 
 const PreviewPage = () => {
-    const previewRef= useRef();
-    const {selectedTemplate,invoiceData ,setSelectedTemplate}= useContext(AppContext);
+    const previewRef = useRef();
+    const { selectedTemplate, invoiceData, setSelectedTemplate } = useContext(AppContext);
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
+    const handelSaveAndExit = async () => {
+        try {
+            setLoading(true);
+
+            // TODO: create thumbnail url
+            const payload = {
+                ...invoiceData,
+                template: selectedTemplate, // "templates" ki jagah ek template hoga?
+            };
+
+            const response = await saveInvoice(baseURL, payload);
+
+            if (response.status === 200) {
+                toast.success("Invoice saved successfully ✅");
+               navigate("/dashboard") // yahan tu navigate karna ya toast dikhana chahega
+            } else {
+               toast.error("saved failed");
+            }
+        }catch (error){
+            console.error(error);
+            toast.error("Save failed", error.message);
+
+        }
+
+
+    };
     return (
        <div className="previewpage container-fluid d-flex flex-column p-3 min-vh-100">
 

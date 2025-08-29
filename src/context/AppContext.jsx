@@ -1,5 +1,4 @@
 import { createContext, useState } from "react";
-import { templates } from "../assets/assets";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const AppContext = createContext();
@@ -24,13 +23,19 @@ export const AppContextProvider = ({ children }) => {
     const [invoiceTitle, setInvoiceTitle] = useState("New Invoice ");
     const [invoiceData, setInvoiceData] = useState(initialInvoiceData);
     const [selectedTemplate, setSelectedTemplate] = useState("template1");
+  // created base url to connect backend and passed to contextvalue line 29 position 35
+    const baseURL = "https://8080/api"
 
     const contextValue = {
         invoiceTitle, setInvoiceTitle,
         invoiceData, setInvoiceData,
         selectedTemplate, setSelectedTemplate,
-        initialInvoiceData,
+        initialInvoiceData, baseURL
+      // and base url passed to contextValue
+
     };
+
+
 
     return (
         <AppContext.Provider value={contextValue}>
