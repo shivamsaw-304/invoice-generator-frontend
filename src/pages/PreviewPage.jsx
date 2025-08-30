@@ -8,7 +8,7 @@ import {useNavigate} from "react-router-dom";
 import {AppContext} from "../context/AppContext.jsx";
 import {Loader, Loader2} from "lucide-react";
 import html2canvas from "html2canvas";
-import {uploadInvoiceThumbail} from "../sevice/CloudinaryService.js";
+import {uploadInvoiceThumbnail} from "../sevice/CloudinaryService.js";
 
 const PreviewPage = () => {
     const previewRef = useRef();
@@ -28,7 +28,7 @@ const PreviewPage = () => {
                scrollY:-window.scrollY,
            })
           const imageData =  canvas.toDataURL("image/png");
-          const thumbnailUrl =  await  uploadInvoiceThumbail(imageData);
+          const thumbnailUrl =  await  uploadInvoiceThumbnail(imageData);
           const payload = {
                 ...invoiceData,
                 thumbnailUrl,
