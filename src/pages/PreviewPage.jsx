@@ -1,24 +1,37 @@
 import {useContext, useRef, useState} from 'react';
 import { templates } from '../assets/assets';
-import { AppContext } from '../context/AppContext';
+
 import InvoicePreview from '../components/invoicePreview';
 import {saveInvoice} from "../sevice/InvoiceService.js";
 import toast from "react-hot-toast";
 import {useNavigate} from "react-router-dom";
-import {logger} from "html2canvas/dist/types/core/__mocks__/logger.js";
+import {AppContext} from "../context/AppContext.jsx";
+import {Loader, Loader2} from "lucide-react";
+import html2canvas from "html2canvas";
+import {uploadInvoiceThumbail} from "../sevice/CloudinaryService.js";
 
 const PreviewPage = () => {
     const previewRef = useRef();
-    const { selectedTemplate, invoiceData, setSelectedTemplate } = useContext(AppContext);
+
+    const { selectedTemplate, invoiceData, setSelectedTemplate,baseURL} = useContext(AppContext);
+    // 👆 yahan sabhi AppContecxt ke variables  destructure kiya hai
+
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const handelSaveAndExit = async () => {
         try {
             setLoading(true);
-
-            // TODO: create thumbnail url
-            const payload = {
+        const canvas =    await  html2canvas(previewRef.current,{
+               cale:2,
+               useCORS: true,
+               backgroundColor:"#fff",
+               scrollY:-window.scrollY,
+           })
+          const imageData =  canvas.toDataURL("image/png");
+          const thumbnailUrl =  await  uploadInvoiceThumbail(imageData);
+          const payload = {
                 ...invoiceData,
+                thumbnailUrl,
                 template: selectedTemplate, // "templates" ki jagah ek template hoga?
             };
 
@@ -34,6 +47,8 @@ const PreviewPage = () => {
             console.error(error);
             toast.error("Save failed", error.message);
 
+        }finally {
+            setLoading(false);
         }
 
 
@@ -57,7 +72,10 @@ const PreviewPage = () => {
 
                {/* list of action btn */}
             <div className="d-flex flex-wrap justify-content-center gap-2">
-                <button className="btn btn-primary d-flex align-item-center justify-content-center">Save and Exit</button>
+                <button className="btn btn-primary d-flex align-item-center justify-content-center" onClick={handelSaveAndExit} disabled={loading} >
+                    {loading && <Loader2 className="me-2 spin-animation" size={18}/>}
+                    {loading ? 'Saving...' : 'Save and Exit'}
+                </button>
                 <button className="btn btn-danger">Delete Invoice</button>
                 <button className="btn btn-secondary">Back to Dashboard</button>
                 <button className="btn btn-info">Send Email</button>

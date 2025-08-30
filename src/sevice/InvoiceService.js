@@ -1,5 +1,5 @@
 import axios   from "axios";
 
-export  const saveInvoice =(baseURL,payload) =>{
+export  const saveInvoice = async (baseURL,payload) =>{
     return axios.post(`${baseURL}/invoices`, payload);
 }

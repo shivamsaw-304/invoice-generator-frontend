@@ -24,7 +24,7 @@ export const AppContextProvider = ({ children }) => {
     const [invoiceData, setInvoiceData] = useState(initialInvoiceData);
     const [selectedTemplate, setSelectedTemplate] = useState("template1");
   // created base url to connect backend and passed to contextvalue line 29 position 35
-    const baseURL = "https://8080/api"
+    const baseURL = "http://localhost:8080/api"
 
     const contextValue = {
         invoiceTitle, setInvoiceTitle,
