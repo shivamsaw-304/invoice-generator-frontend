@@ -28,7 +28,7 @@ const Menubar = () => {
 
                        <li className="nav-item">
                          
-                          <Link className="nav-link fw-medium" to="/dashbord"> Dashboard </Link>
+                          <Link className="nav-link fw-medium" to="/dashboard"> Dashboard </Link>
                          
                        </li>
 

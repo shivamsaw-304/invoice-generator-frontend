@@ -5,6 +5,7 @@ import './index.css';
 import App from './App.jsx';
 import { AppContextProvider } from "./context/AppContext.jsx"; // ✅ fixed spelling
 
+
 createRoot(document.getElementById('root')).render(
   <AppContextProvider>  {/* ✅ removed value prop */}
     <App />

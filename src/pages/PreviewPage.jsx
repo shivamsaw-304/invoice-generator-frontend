@@ -2,22 +2,25 @@ import {useContext, useRef, useState} from 'react';
 import { templates } from '../assets/assets';
 
 import InvoicePreview from '../components/invoicePreview';
-import {saveInvoice} from "../sevice/InvoiceService.js";
 import toast from "react-hot-toast";
 import {useNavigate} from "react-router-dom";
 import {AppContext} from "../context/AppContext.jsx";
 import {Loader, Loader2} from "lucide-react";
 import html2canvas from "html2canvas";
 import {uploadInvoiceThumbnail} from "../sevice/CloudinaryService.js";
+import {deleteInvoice, saveInvoice} from "../sevice/InvoiceService.js";
+import {generatePdfFromElement} from "../util/pdfUtils.js";
+// import { useAuth} from "@clerk/clerk-react";
 
 const PreviewPage = () => {
     const previewRef = useRef();
 
+    //const { getToken } = useAuth();
     const { selectedTemplate, invoiceData, setSelectedTemplate,baseURL} = useContext(AppContext);
     // 👆 yahan sabhi AppContecxt ke variables  destructure kiya hai
-
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+    const [downloading,setDownloading] = useState(false);
     const handelSaveAndExit = async () => {
         try {
             setLoading(true);
@@ -53,6 +56,38 @@ const PreviewPage = () => {
 
 
     };
+
+    const handleDelete = async () => {
+        if (!invoiceData.id) return toast.error("No invoice ID found.");
+
+        try {
+           // const token = await getToken();
+            const res = await deleteInvoice(baseURL, invoiceData.id);
+            if (res.status === 204) {
+                toast.success("Invoice deleted.");
+                navigate("/dashboard");
+            } else {
+                toast.error("Unable to delete invoice.");
+            }
+        } catch (err) {
+            toast.error("Delete failed.");
+            console.error(err);
+        }
+    };
+
+    const handleDownloadPdf = async () => {
+        if (!previewRef.current) return;
+        try {
+            setDownloading(true);
+            await generatePdfFromElement(previewRef.current, `invoice_${Date.now()}.pdf`)
+        } catch (error) {
+            toast.error("Failed to generate invoice", error.message);
+        } finally {
+            setDownloading(false);
+        }
+
+    }
+
     return (
        <div className="previewpage container-fluid d-flex flex-column p-3 min-vh-100">
 
@@ -76,25 +111,29 @@ const PreviewPage = () => {
                     {loading && <Loader2 className="me-2 spin-animation" size={18}/>}
                     {loading ? 'Saving...' : 'Save and Exit'}
                 </button>
-                <button className="btn btn-danger">Delete Invoice</button>
+                <button className="btn btn-danger" onClick={handleDelete}>Delete Invoice</button>
                 <button className="btn btn-secondary">Back to Dashboard</button>
                 <button className="btn btn-info">Send Email</button>
-                <button className="btn  btn-success d-flex align-item-center justify-content-center">Print</button>
+                <button
+                    className="btn btn-success d-flex align-items-center justify-content-center"
+                    onClick={handleDownloadPdf}
+                    disabled={downloading}
+                >
+                    {downloading && (
+                        <Loader2 className="me-2 spin-animation" size={18} />
+                    )}
+                    {downloading ? "Downloading..." : "Download PDF"}
+                </button>
 
 
             </div>
          </div>
 {/* display the invoice preview */}
-<div className="flex-grow-1 overflow-auto d-flex justify-content-center align-item-start bg-light py-3">
-<div ref={previewRef} className='invoice-preview'>
-<InvoicePreview invoiceData = {invoiceData} template = {selectedTemplate} />
-
-</div>
-
-</div>
-
-
-
+   <div className="flex-grow-1 overflow-auto d-flex justify-content-center align-item-start bg-light py-3">
+      <div ref={previewRef} className='invoice-preview'>
+        <InvoicePreview invoiceData = {invoiceData} template = {selectedTemplate} />
+      </div>
+   </div>
        </div>
     )
 }
