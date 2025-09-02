@@ -1,6 +1,6 @@
 
 // in this file we can make request form backend  springboot
-
+// adding java invoiceservice from j
 import axios   from "axios";
 
 export  const saveInvoice = async (baseURL,payload) =>{
@@ -16,3 +16,9 @@ export  const getAllInvoices = async (baseURL) =>{
 export const deleteInvoice =  (baseURL,id) =>{
    return   axios.delete(`${baseURL}/invoices/${id}`);
 }
+
+
+export const sendInvoice = async (baseURL,formData) =>{
+ return   axios.post(`${baseURL}/invoices/sendinvoice`,formData);
+}
+

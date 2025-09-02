@@ -16,4 +16,10 @@ Part 11: Create PDF and download
 Create utility method to create PDF
 Call utility method to download the PDF
 
->
+Part 12: Attach PDF and send emails to clients
+create an account in Brevo
+Configure the email service in  --- java
+Create a backend API to send emails -- in java
+Creat a service to consume the backend API - in React.js (invoiceServices)
+Create modal to send email 
+Test the implementation

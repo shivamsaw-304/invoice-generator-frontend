@@ -14,10 +14,9 @@ import {generatePdfFromElement} from "../util/pdfUtils.js";
 
 const PreviewPage = () => {
     const previewRef = useRef();
-
-    //const { getToken } = useAuth();
     const { selectedTemplate, invoiceData, setSelectedTemplate,baseURL} = useContext(AppContext);
     // 👆 yahan sabhi AppContecxt ke variables  destructure kiya hai
+    const [showModal,setShowModal] = useState(false);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const [downloading,setDownloading] = useState(false);
@@ -25,7 +24,7 @@ const PreviewPage = () => {
         try {
             setLoading(true);
         const canvas =    await  html2canvas(previewRef.current,{
-               cale:2,
+               scale:2,
                useCORS: true,
                backgroundColor:"#fff",
                scrollY:-window.scrollY,
@@ -113,7 +112,7 @@ const PreviewPage = () => {
                 </button>
                 <button className="btn btn-danger" onClick={handleDelete}>Delete Invoice</button>
                 <button className="btn btn-secondary">Back to Dashboard</button>
-                <button className="btn btn-info">Send Email</button>
+                <button className="btn btn-info" onClick={() => setShowModal(true)}>Send Email</button>
                 <button
                     className="btn btn-success d-flex align-items-center justify-content-center"
                     onClick={handleDownloadPdf}
@@ -129,12 +128,37 @@ const PreviewPage = () => {
             </div>
          </div>
 {/* display the invoice preview */}
-   <div className="flex-grow-1 overflow-auto d-flex justify-content-center align-item-start bg-light py-3">
+   <div className="flex-grow-1 overflow-auto d-flex justify-content-center align-items-start bg-light py-3">
       <div ref={previewRef} className='invoice-preview'>
         <InvoicePreview invoiceData = {invoiceData} template = {selectedTemplate} />
       </div>
    </div>
-       </div>
+
+           {showModal && (
+               <div className="modal d-block"  tabIndex="-1" role="dialog" style={{ backgroundColor: "rgba(0,0,0,0.5)" }}>
+                   <div className="modal-dialog" role = "document">
+                       <div className="modal-content">
+                           <div className="modal-header">
+                               <h5 className="modal-title">Send Invoice </h5>
+                               <button type={"button"} className="btn-close" onClick={ () => setShowModal(false)}></button>
+                           </div>
+                           <div className="modal-body">
+                               <input type="email"  placeholder= "Customer Email" className="form-control"/>
+                           </div>
+                           <div className="modal-footer">
+                               <button className="btn btn-primary" type="button"> Send</button>
+                               <button className="btn btn-secondary" type="button" onClick={() => setShowModal(false)}> Cancel </button>
+                           </div>
+
+
+                       </div>
+                   </div>
+
+               </div>
+           )}
+
+
+ </div>
     )
 }
 
