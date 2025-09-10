@@ -1,7 +1,7 @@
 /* Hero section styling */
 .hero-section {
     /* Gradient overlay for better text visibility on background image */
-    background: linear-gradient(rgba(13, 110, 253, 0.80), rgba(13, 110, 253, 0.70)),
+    background: linear-gradient(rgba(13, 110, 253, 0.80), rgb(198, 152, 81)),
     url('[https://placehold.co/1920x1080/495057/dee2e6?text=Modern+Digital+Workspace](https://placehold.co/1920x1080/495057/dee2e6?text=Modern+Digital+Workspace)') no-repeat center center;
     background-size: cover;
     color: #ffffff; /* Ensure text is white */
@@ -9,6 +9,13 @@
 
 .hero-section h1 {
     font-weight: 900; /* Extra bold for hero title */
+}
+.bg-footer{
+    background: linear-gradient(rgb(198, 152, 81),rgba(13, 110, 253, 0.80))
+
+}
+.bg-section{
+    background:rgb(198, 152, 81)
 }
 
 /* Navbar brand styling */
@@ -48,7 +55,7 @@
 .btn-warning:hover {
     color: #000000;
     background-color: #ffca2c; /* Lighter yellow on hover */
-    border-color: #ffc720;
+    border-color: #c69851;
 }
 
 .btn-outline-light {
@@ -73,7 +80,7 @@ footer a:hover i { /* Simplified and corrected selector for footer icons */
 }
 
 #features h2, h3 {
-    color: #0D6EFDB2;
+    color: white;
 }
 
 /* Responsive adjustments for various screen sizes */

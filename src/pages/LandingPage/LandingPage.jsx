@@ -31,9 +31,9 @@ const LandingPage = () => {
             </header>
         
          {/* How It Works Section: Explains the process in steps using cards */}
-            <section id="how-it-works" className="py-5 bg-light">
+            <section id="how-it-works" className="py-5 bg-section fw-bold">
                 <div className="container">
-                    <h2 className="text-center mb-5 display-5 fw-bold">Get Started in 4 Simple Steps</h2>
+                    <h2 className="text-center mb-5 display-5 fw-bold text-white">Get Started in 4 Simple Steps</h2>
                     <div className="row g-4 justify-content-center">
                         {/* Step 1 Card */}
                         <div className="col-md-6 col-lg-3 d-flex">
@@ -48,7 +48,7 @@ const LandingPage = () => {
                                 </div>
                                 <div className="card-body p-4">
                                     <h5 className="card-title fw-bold mb-2 fs-5">Enter Details</h5>
-                                    <p className="card-text text-muted small">
+                                    <p className="card-text text-muted fw-medium">
                                         Quickly fill in your clients information, item descriptions, quantities, and prices. Our intuitive form makes it a breeze.
                                     </p>
                                 </div>
@@ -118,7 +118,7 @@ const LandingPage = () => {
                 </div>
             </section>
 
-         <section id="features" className="py-5">
+         <section id="features" className="py-5 bg-section fw-bold">
                 <div className="container">
                     <h2 className="text-center mb-5 display-5 fw-bold">Why Choose QuickInvoice?</h2>
                     {/* Feature 1 */}
@@ -133,8 +133,8 @@ const LandingPage = () => {
                         </div>
                         <div className="col-md-6">
                             <h3 className="fw-bold mx-2">Easy to fill invoice details</h3>
-                            <p className="text-muted lead fs-6 mx-2">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                            <p className="text-muted lead fs-6 mx-2 fw-bold">
+                              Fill the details according you requiements  with all the notes and description
                             </p>
                             <ul className="list-unstyled text-muted">
                                 <li className="mb-2"><i className="bi bi-check-circle-fill text-primary me-2"></i>Curated list of templates from gallery.</li>
@@ -155,8 +155,8 @@ const LandingPage = () => {
                         </div>
                         <div className="col-md-6">
                             <h3 className="fw-bold mx-2">Beautiful Dashboard</h3>
-                            <p className="text-muted lead fs-6 mx-2">
-                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                            <p className="text-muted lead fs-6 mx-2 fw-bold">
+                               Dashboard with fill of previes templates
                             </p>
                             <ul className="list-unstyled text-muted">
                                 <li className="mb-2"><i className="bi bi-check-circle-fill text-primary me-2"></i>View the previous invoices.</li>
@@ -179,8 +179,8 @@ const LandingPage = () => {
                         </div>
                         <div className="col-md-6">
                             <h3 className="fw-bold mx-2">Invoice Preview with Action Buttons</h3>
-                            <p className="text-muted lead fs-6 mx-2">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                            <p className="text-muted lead fs-6 mx-2 fw-bold">
+                                The Invoice Preview with Action Buttons feature in My-Bill-Generator provides users with a convenient way to review and manage invoices before finalizing them. When a user selects a customer and adds products, the system automatically generates a draft invoice that includes essential details such as customer information, product names, quantities, individual prices, subtotal, discounts, taxes, and the final payable amount. This preview allows the user to cross-check all entered data and ensure accuracy before saving or sharing the invoice. To enhance usability, the interface includes a set of intuitive action buttons. For example, the Edit button lets users modify product details, quantities, or customer information if any errors are detected.
                             </p>
                             <ul className="list-unstyled text-muted">
                                 <li className="mb-2"><i className="bi bi-check-circle-fill text-primary me-2"></i>Live preview.</li>
@@ -201,8 +201,8 @@ const LandingPage = () => {
                         </div>
                         <div className="col-md-6">
                             <h3 className="fw-bold mx-2">Send invoices instantly</h3>
-                            <p className="text-muted lead fs-6 mx-2">
-                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                            <p className="text-muted lead fs-6 mx-2 fw-bold">
+                                The system allows users to create and send invoices instantly with just a few clicks. Once customer and product details are entered, the invoice is generated in real-time and can be shared via email, downloaded as a PDF, or printed, ensuring fast, accurate, and professional billing every time.
                             </p>
                             <ul className="list-unstyled text-muted">
                                 <li className="mb-2"><i className="bi bi-check-circle-fill text-primary me-2"></i>Send invoices instantly without leaving the application.</li>
@@ -215,7 +215,7 @@ const LandingPage = () => {
                 </div>
             </section>
         
-          <section id="generate-invoice" className="py-5 text-center bg-primary text-white">
+          <section id="generate-invoice" className="py-5 text-center bg-footer text-white" >
                 <div className="container">
                     <h2 className="display-5 fw-bold mb-3">Ready to Streamline Your Invoicing?</h2>
                     <p className="lead mb-4 mx-auto" style={{ maxWidth: '600px' }}>

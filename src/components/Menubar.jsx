@@ -3,14 +3,14 @@ import Logo from "./Logo.jsx";
 
 const Menubar = () => {
     return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <nav className="navbar navbar-expand-lg navbar-light bg-footer shadow-sm sticky-top">
             <div className="container py-2">
                 <Link className="navbar-brand d-flex align-items-center" to="/">
                     <Logo />
                     <span 
                         className="fw-bolder fs-4 mx-3"
-                        style={{ letterSpacing: '-0.5px', color: '#0D6EFDB2' }}>
-                      Invoice Generator
+                        style={{ letterSpacing: '-0.5px', color: '#f88403' }}>
+                     MI-Bill-Generator
                     </span>
                 </Link>
                 <button className="navbar-toggler" type="button"
