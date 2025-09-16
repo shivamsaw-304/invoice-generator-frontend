@@ -20,41 +20,49 @@ const PreviewPage = () => {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const [downloading,setDownloading] = useState(false);
+    // const handelSaveAndExit = async () => {
+    //     try {
+    //         setLoading(true);
+    //     const canvas =    await  html2canvas(previewRef.current,{
+    //            scale:2,
+    //            useCORS: true,
+    //            backgroundColor:"#fff",
+    //            scrollY:-window.scrollY,
+    //        })
+    //       const imageData =  canvas.toDataURL("image/png");
+    //       const thumbnailUrl =  await  uploadInvoiceThumbnail(imageData);
+    //       const payload = {
+    //             ...invoiceData,
+    //             thumbnailUrl,
+    //             template: selectedTemplate, // "templates" ki jagah ek template hoga?
+    //         };
+    //
+    //         const response = await saveInvoice(baseURL, payload);
+    //
+    //         if (response.status === 200) {
+    //             toast.success("Invoice saved successfully ✅");
+    //            navigate("/dashboard") // yahan tu navigate karna ya toast dikhana chahega
+    //         } else {
+    //            toast.error("saved failed");
+    //         }
+    //     }catch (error){
+    //         console.error(error);
+    //         toast.error("Save failed", error.message);
+    //
+    //     }finally {
+    //         setLoading(false);
+    //     }
+    //
+    //
+    // };
+
     const handelSaveAndExit = async () => {
-        try {
+        try{
             setLoading(true);
-        const canvas =    await  html2canvas(previewRef.current,{
-               scale:2,
-               useCORS: true,
-               backgroundColor:"#fff",
-               scrollY:-window.scrollY,
-           })
-          const imageData =  canvas.toDataURL("image/png");
-          const thumbnailUrl =  await  uploadInvoiceThumbnail(imageData);
-          const payload = {
-                ...invoiceData,
-                thumbnailUrl,
-                template: selectedTemplate, // "templates" ki jagah ek template hoga?
-            };
-
-            const response = await saveInvoice(baseURL, payload);
-
-            if (response.status === 200) {
-                toast.success("Invoice saved successfully ✅");
-               navigate("/dashboard") // yahan tu navigate karna ya toast dikhana chahega
-            } else {
-               toast.error("saved failed");
-            }
-        }catch (error){
-            console.error(error);
-            toast.error("Save failed", error.message);
-
-        }finally {
-            setLoading(false);
         }
 
 
-    };
+    }
 
     const handleDelete = async () => {
         if (!invoiceData.id) return toast.error("No invoice ID found.");

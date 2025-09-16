@@ -147,7 +147,8 @@ const LandingPage = () => {
                     <div className="row align-items-center gy-4 mt-5 flex-row-reverse"> {/* flex-row-reverse alternates image/text */}
                         <div className="col-md-6">
                             <img
-                                src={assets.landing2}
+                                src={assets.landingw
+                            }
                                 className="img-fluid rounded shadow-lg"
                                 alt="Time Saving"
                                 onError={(e) => { e.target.onerror = null; e.target.src='https://placehold.co/600x400/E0E0E0/000000?text=Error'; }}

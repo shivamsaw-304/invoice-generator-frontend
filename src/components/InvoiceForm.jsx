@@ -90,7 +90,7 @@ const InvoiceForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log("Form submitted successfully", invoiceData);
-        // Add your submit logic here
+
     };
 
     return (
@@ -397,7 +397,7 @@ const InvoiceForm = () => {
                     ></textarea>
                 </div>
             </div>
-            {/*<button className="btn btn-primary" type="button" onClick={handleSubmit}>Submit</button>*/}
+            <button className="btn btn-primary" type="button" onClick={handleSubmit}>Submit</button>
         </div>
     );
 };
