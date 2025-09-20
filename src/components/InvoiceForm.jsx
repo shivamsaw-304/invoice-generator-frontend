@@ -2,7 +2,11 @@ import React, { useContext, useEffect } from 'react';
 import { Trash } from "lucide-react";
 import { AppContext } from '../context/AppContext';
 import { assets } from "../assets/assets";
+import {saveInvoice} from "../sevice/InvoiceService.js";
 
+//
+// items[index].total = (Number(items[index].qty) || 0) * (Number(items[index].amount) || 0);
+// }
 const InvoiceForm = () => {
     const { invoiceData, setInvoiceData } = useContext(AppContext);
 
@@ -73,25 +77,50 @@ const InvoiceForm = () => {
     };
 
     // Generate invoice number if not present
+    // useEffect(() => {
+    //     if (!invoiceData.invoice.number) {
+    //         const randomNumber = `INV-${Math.floor(100000 + Math.random() * 900000)}`;
+    //         setInvoiceData((prev) => ({
+    //             ...prev,
+    //             invoice: {
+    //                 ...prev.invoice,
+    //                 number: randomNumber
+    //             }
+    //         }));
+    //     }
+    // }, [invoiceData, setInvoiceData]);
+
+    // Submit handler
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        if (!invoiceData.items.length) {
+            alert("Please add at least one item!");
+            return;
+        }
+
+        try {
+            const token = localStorage.getItem("jwtToken"); // ya jo token tum use kar rahe ho
+            const response = await saveInvoice("http://localhost:8080/api", invoiceData, token);
+            console.log("Saved:", response.data);
+            alert("Invoice saved successfully!");
+        } catch (err) {
+            console.error(err);
+            alert("Failed to save invoice. Check console.");
+        }
+    };
     useEffect(() => {
+        // Only generate if it's not already set (for example, editing an existing invoice)
         if (!invoiceData.invoice.number) {
             const randomNumber = `INV-${Math.floor(100000 + Math.random() * 900000)}`;
             setInvoiceData((prev) => ({
                 ...prev,
-                invoice: {
-                    ...prev.invoice,
-                    number: randomNumber
-                }
+                invoice: { ...prev.invoice, number: randomNumber },
             }));
         }
-    }, [invoiceData, setInvoiceData]);
+    }, []);
 
-    // Submit handler
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log("Form submitted successfully", invoiceData);
-
-    };
 
     return (
         <div className="invoiceform container py-4">

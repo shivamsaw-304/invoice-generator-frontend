@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import Logo from "./Logo.jsx";
-import {useContext} from "react";
+// import {useContext} from "react";
 import {SignedIn, SignedOut, useClerk, UserButton} from "@clerk/clerk-react";
 
 
@@ -20,8 +20,8 @@ const Menubar = () => {
                     <Logo />
                     <span 
                         className="fw-bolder fs-4 mx-3"
-                        style={{ letterSpacing: '-0.5px', color: '#f88403' }}>
-                     MI-Bill-Generator
+                        style={{ letterSpacing: '-0.5px', color: 'rgba(222,f32,3e2,232)' }}>
+                     MI-BILL
                     </span>
                 </Link>
                 <button className="navbar-toggler" type="button"

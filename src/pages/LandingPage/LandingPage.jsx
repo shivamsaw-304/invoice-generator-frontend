@@ -235,9 +235,9 @@ const LandingPage = () => {
          <footer className="py-5 bg-dark text-white-50">
                 <div className="container text-center">
                     <Logo />
-                    <p className="text-white fw-bold mt-2">QuickInvoice</p>
+                    <p className="text-white fw-bold mt-2">MI-BILL</p>
                     <p className="mb-0">
-                        &copy; {new Date().getFullYear()} QuickInvoice. All Rights Reserved.
+                        &copy; {new Date().getFullYear()} MI-BILL. All Rights Reserved.
                     </p>
                     <p className="mb-0 small">
                         Crafted with <i className="bi bi-heart-fill text-danger"></i> for freelancers and small businesses.

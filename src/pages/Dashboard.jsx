@@ -5,16 +5,21 @@ import toast from "react-hot-toast";
 import {Plus} from "lucide-react";
 import {formatDate} from "../util/formatInvoiceData.js";
 import {useNavigate} from "react-router-dom";
+import {useAuth} from "@clerk/clerk-react";
 
 const Dashboard = () => {
 
     const [invoices, setInvoices] = useState([]);
     const {baseURL,setInvoiceData,setSelectedTemplate,setInvoiceTitle,initialInvoiceData} =  useContext(AppContext);
     const navigate = useNavigate();  // navigate hook
+    const {getToken} = useAuth()
     useEffect(() => {
         const fetchInvoices = async () => {
             try{
-             const respone = await   getAllInvoices(baseURL);
+
+                const token = await getToken()
+
+             const respone = await   getAllInvoices(baseURL,token);
              setInvoices(respone.data)
 
             }catch (error) {

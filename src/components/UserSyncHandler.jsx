@@ -4,44 +4,42 @@ import {AppContext} from "../context/AppContext.jsx";
 import axios from "axios";
 import toast from "react-hot-toast";
 
+const UserSyncHandler = () => {
+    const [synced, setSynced] = useState(false);
+    const { isLoaded, isSignedIn, getToken } = useAuth();
+    const { user } = useUser();
+    const { baseURL } = useContext(AppContext);
 
-const UserSyncHandler = () =>{
-
-    const [synced,setSynced] = useState(false);
-    const {isLoaded,isSignedIn,getToken} = useAuth();
-    const{user} = useUser();
-    const{baseURL} = useContext(AppContext);
-
-    useEffect(async () => {
+    useEffect(() => {
         const saveUser = async () => {
-            if (!isLoaded || !isSignedIn || synced){
+            if (!isLoaded || !isSignedIn || synced) {
                 return;
             }
 
             try {
                 const token = await getToken();
-                const userData ={
-                    clerkId:user.id,
-                    email:user.primaryEmailAddress.emailAddress,
-                    fistName:user.firstName,
-                    lastName:user.lastName,
-                    photoUrl:user.imageUrl
-                }
+                const userData = {
+                    clerkId: user.id,
+                    email: user?.primaryEmailAddress?.emailAddress,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    photoUrl: user.imageUrl
+                };
 
-                await  axios.post(baseURL + '/users',userData,{headers:{Authorization:`Bearer ${token}`}})
+                await axios.post(baseURL + "/users", userData, {
+                    headers: { Authorization: `Bearer ${(token)}` },
+                });
 
                 setSynced(true);
-
-            }catch (error){
+            } catch (error) {
                 toast.error(error.message);
             }
-        }
+        };
+
         saveUser();
+    }, [isLoaded, isSignedIn, getToken, user, synced, baseURL]);
 
-
-
-    },[isLoaded,isSignedIn,getToken,user,synced]);
     return null;
-}
+};
 
 export default UserSyncHandler;
