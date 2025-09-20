@@ -1,7 +1,18 @@
 import { Link } from "react-router-dom";
 import Logo from "./Logo.jsx";
+import {useContext} from "react";
+import {SignedIn, SignedOut, useClerk, UserButton} from "@clerk/clerk-react";
+
 
 const Menubar = () => {
+
+    const {openSignIn} =  useClerk();
+
+
+    const openLogin =() =>{
+        openSignIn({})
+    }
+
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-footer shadow-sm sticky-top">
             <div className="container py-2">
@@ -22,27 +33,32 @@ const Menubar = () => {
                 </button>
                 <div className="collapse navbar-collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav ms-auto align-items-center ">
-                       <li className="nav-item">
-                        <Link className="nav-link fw-medium" to="/">Home</Link>
-                       </li>
+                      <SignedIn>
+                          <li className="nav-item">
+                              <Link className="nav-link fw-medium" to="/">Home</Link>
+                          </li>
 
-                       <li className="nav-item">
-                         
-                          <Link className="nav-link fw-medium" to="/dashboard"> Dashboard </Link>
-                         
-                       </li>
+                          <li className="nav-item">
 
-                       <li className="nav-item">
-                         <button className="nav-link fw-medium">
-                            Generate
-                        </button>
-                       </li>
+                              <Link className="nav-link fw-medium" to="/dashboard"> Dashboard </Link>
 
-                       <li className="nav-item">
-                        <button className="btn btn-primary rounded-pill px-4">
-                            login/Signup
-                        </button>
-                       </li>
+                          </li>
+
+                          <li className="nav-item">
+                              <button className="nav-link fw-medium">
+                                  Generate
+                              </button>
+                          </li>
+                          <UserButton/>
+                      </SignedIn>
+
+                       <SignedOut>
+                           <li className="nav-item">
+                               <button className="btn btn-primary rounded-pill px-4" onClick={openLogin}>
+                                   login/Signup
+                               </button>
+                           </li>
+                       </SignedOut>
                     </ul>
                 </div>
             </div>

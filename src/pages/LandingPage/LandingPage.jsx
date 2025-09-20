@@ -17,7 +17,7 @@ const LandingPage = () => {
                             </p>
                             <p>
                                 {/* Primary call to action */}
-                                <button  className="btn btn-lg btn-warning fw-bold rounded-pill my-2 mx-1 px-5 py-3">
+                                <button  className="btn btn-lg btn-warning fw-bold rounded-pill my-2 mx-1 px-5 py-3" >
                                     Generate Your First Invoice
                                 </button>
                                 {/* Secondary call to action */}
